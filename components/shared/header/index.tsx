@@ -7,7 +7,7 @@ import { APP_NAME } from "@/lib/constants";
 
 const Header = () => {
   return (
-    <header className="w-full border border-b border-gray-300">
+    <header className="w-full border border-b ">
       <div className="wrapper flex justify-between items-center">
         <div className="flex justify-start items-center">
           <Link href="/" className="flex justify-start items-center">
