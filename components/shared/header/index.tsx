@@ -4,13 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { APP_NAME } from "@/lib/constants";
+import ModelToggle from "./mode-toggle";
 
 const Header = () => {
   return (
-    <header className="w-full border border-b ">
-      <div className="wrapper flex justify-between items-center">
-        <div className="flex justify-start items-center">
-          <Link href="/" className="flex justify-start items-center">
+    <header className="w-full border-b">
+      <div className="wrapper flex-between">
+        <div className="flex-start">
+          <Link href="/" className="flex-start ml-4">
             <Image
               src="/images/logo.png"
               alt={`${APP_NAME} logo`}
@@ -23,7 +24,8 @@ const Header = () => {
             </span>
           </Link>
         </div>
-        <div className="space-x-2">
+        <div className="space-x-2 flex">
+          <ModelToggle />
           <Button asChild variant="ghost">
             <Link href="/cart">
               <ShoppingCart /> Cart
