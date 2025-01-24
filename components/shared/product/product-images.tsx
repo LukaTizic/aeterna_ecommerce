@@ -1,11 +1,15 @@
 "use client";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-
 import React, { useState } from "react";
 
-const ProductImages = ({ images }: string[]) => {
+interface ProductImagesProps {
+  images: string[];
+}
+
+const ProductImages: React.FC<ProductImagesProps> = ({ images }) => {
   const [current, setCurrent] = useState(0);
+
   return (
     <div className="space-y-4">
       <Image
