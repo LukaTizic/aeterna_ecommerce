@@ -40,7 +40,7 @@ const CredentialsSignInForm = () => {
           </Button>
         </div>
         <div className="text-sm text-center text-muted-foreground">
-          Don&apos; have an account?{" "}
+          Don&apos;t have an account?{" "}
           <Link href="/sign-up" target="_self" className="link text-cyan-500">
             Sign Up
           </Link>
