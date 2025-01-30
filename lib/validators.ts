@@ -42,7 +42,7 @@ export const signUpFormSchema = z
   });
 
 // cart schemas
-export const cardItemSchema = z.object({
+export const cartItemSchema = z.object({
   productId: z.string().min(1, "Product is required"),
   name: z.string().min(1, "Name is required"),
   slug: z.string().min(1, "Slug is required"),
