@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import { addItemToCart } from "@/lib/actions/cart.actions";
 
 const AddToCart = ({ item }: { item: CartItem }) => {
-  console.log(item);
   const router = useRouter();
   const { toast } = useToast();
 
@@ -40,7 +39,7 @@ const AddToCart = ({ item }: { item: CartItem }) => {
 
   return (
     <Button className="w-full" type="button" onClick={handleAddToCart}>
-      <Plus /> Cart
+      <Plus /> Add to Cart
     </Button>
   );
 };
