@@ -6,7 +6,6 @@ import { convertToObject, formatError } from "../utils";
 import { auth } from "@/auth";
 import { prisma } from "@/db/prisma";
 import { cartItemSchema } from "../validators";
-import ProductCard from "@/components/shared/product/product-card";
 
 export async function addItemToCart(data: CartItem) {
   try {
