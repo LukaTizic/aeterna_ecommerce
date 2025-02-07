@@ -80,16 +80,26 @@ const AddToCart = ({ cart, item }: { cart?: Cart; item: CartItem }) => {
         )}
       </Button>
       <span className="px-5 ">{existItem.qty}</span>
-      <Button type="button" variant="outline" onClick={handleAddToCart}>
+      <Button
+        type="button"
+        variant="outline"
+        onClick={handleAddToCart}
+        disabled={isPending}
+      >
         {isPending ? (
           <Loader className="w-4 h-4 animate-spin" />
         ) : (
           <Plus className="h-4 w-4" />
-        )}{" "}
+        )}
       </Button>
     </div>
   ) : (
-    <Button className="w-full" type="button" onClick={handleAddToCart}>
+    <Button
+      className="w-full"
+      type="button"
+      onClick={handleAddToCart}
+      disabled={isPending}
+    >
       {isPending ? (
         <Loader className="w-4 h-4 animate-spin" />
       ) : (
