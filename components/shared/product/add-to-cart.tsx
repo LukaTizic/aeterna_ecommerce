@@ -31,11 +31,11 @@ const AddToCart = ({ cart, item }: { cart?: Cart; item: CartItem }) => {
         description: res.message,
         action: (
           <ToastAction
-            className="bg-primary text-secondary hover:bg-gray-800 "
+            className="bg-primary text-secondary hover:text-green-500  "
             altText="Go To Cart"
             onClick={() => router.push("/cart")}
           >
-            <Plus /> Go To Cart
+            Go To Cart
           </ToastAction>
         ),
       });
