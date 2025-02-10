@@ -3,7 +3,7 @@
 import { Cart } from "@/types";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 import { addItemToCart, removeItemFromCart } from "@/lib/actions/cart.actions";
 import { ArrowRight, Loader, Minus, Plus } from "lucide-react";
 import Link from "next/link";
@@ -17,11 +17,32 @@ import {
   TableCell,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog"; // Import Dialog
 
 const CartTable = ({ cart }: { cart?: Cart }) => {
-  const router = useRouter();
   const { toast } = useToast();
-  const [isPending, startTrainsition] = useTransition();
+  const [isPending, startTransition] = useTransition();
+  const [showModal, setShowModal] = useState(false);
+  const [selectedItem, setSelectedItem] = useState<{
+    productId: string;
+  } | null>(null);
+
+  const handleRemoveItem = async () => {
+    if (!selectedItem) return;
+    startTransition(async () => {
+      const res = await removeItemFromCart(selectedItem.productId);
+      if (!res.success) {
+        toast({ variant: "destructive", description: res.message });
+      }
+      setShowModal(false);
+    });
+  };
 
   return (
     <>
@@ -66,19 +87,24 @@ const CartTable = ({ cart }: { cart?: Cart }) => {
                         disabled={isPending}
                         variant="outline"
                         type="button"
-                        onClick={() =>
-                          startTrainsition(async () => {
-                            const res = await removeItemFromCart(
-                              item.productId
-                            );
-                            if (!res.success) {
-                              toast({
-                                variant: "destructive",
-                                description: res.message,
-                              });
-                            }
-                          })
-                        }
+                        onClick={() => {
+                          if (item.qty === 1) {
+                            setSelectedItem({ productId: item.productId });
+                            setShowModal(true);
+                          } else {
+                            startTransition(async () => {
+                              const res = await removeItemFromCart(
+                                item.productId
+                              );
+                              if (!res.success) {
+                                toast({
+                                  variant: "destructive",
+                                  description: res.message,
+                                });
+                              }
+                            });
+                          }
+                        }}
                       >
                         {isPending ? (
                           <Loader className="w-4 h-4 animate-spin" />
@@ -92,7 +118,7 @@ const CartTable = ({ cart }: { cart?: Cart }) => {
                         variant="outline"
                         type="button"
                         onClick={() =>
-                          startTrainsition(async () => {
+                          startTransition(async () => {
                             const res = await addItemToCart(item);
                             if (!res.success) {
                               toast({
@@ -118,6 +144,24 @@ const CartTable = ({ cart }: { cart?: Cart }) => {
           </div>
         </div>
       )}
+
+      {/* Modal */}
+      <Dialog open={showModal} onOpenChange={setShowModal}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Remove Item?</DialogTitle>
+          </DialogHeader>
+          <p>Are you sure you want to remove this item from the cart?</p>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowModal(false)}>
+              Cancel
+            </Button>
+            <Button variant="destructive" onClick={handleRemoveItem}>
+              Remove
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </>
   );
 };
