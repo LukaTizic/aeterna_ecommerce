@@ -23,9 +23,12 @@ import {
   DialogHeader,
   DialogTitle,
   DialogFooter,
-} from "@/components/ui/dialog"; // Import Dialog
+} from "@/components/ui/dialog";
+import { formatCurrency } from "@/lib/utils";
+import { Card, CardContent } from "@/components/ui/card";
 
 const CartTable = ({ cart }: { cart?: Cart }) => {
+  const router = useRouter();
   const { toast } = useToast();
   const [isPending, startTransition] = useTransition();
   const [showModal, setShowModal] = useState(false);
@@ -142,6 +145,32 @@ const CartTable = ({ cart }: { cart?: Cart }) => {
               </TableBody>
             </Table>
           </div>
+
+          <Card>
+            <CardContent className="p-4 gap-4">
+              <div className="p-3 text-xl">
+                Subtotal of {cart.items.reduce((acc, cur) => acc + cur.qty, 0)}{" "}
+                items:
+                <span className="font-bold">
+                  {formatCurrency(cart.itemsPrice)}
+                </span>
+              </div>
+              <Button
+                className="w-full "
+                disabled={isPending}
+                onClick={() =>
+                  startTransition(() => router.push("/shipping-address"))
+                }
+              >
+                {isPending ? (
+                  <Loader className="w-4 h-4 animate-spin" />
+                ) : (
+                  <ArrowRight className="w-4 h-4 " />
+                )}
+                Checkout
+              </Button>
+            </CardContent>
+          </Card>
         </div>
       )}
 
