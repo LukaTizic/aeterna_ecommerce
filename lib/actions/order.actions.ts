@@ -5,6 +5,9 @@ import { formatError } from "../utils";
 import { auth } from "@/auth";
 import { getMyCart } from "./cart.actions";
 import { getUserById } from "./user.actions";
+import { insertOrderSchema } from "../validators";
+import { CartItem } from "@/types";
+import { prisma } from "@/db/prisma";
 
 // Create order & create order items
 export async function createOrder() {
@@ -42,6 +45,55 @@ export async function createOrder() {
         redirectTo: "/payment-method",
       };
     }
+
+    // Create order object
+    const order = insertOrderSchema.parse({
+      userId: user.id,
+      shippingAddress: user.address,
+      paymentMethod: user.paymentMethod,
+      itemsPrice: cart.itemsPrice,
+      shippingPrice: cart.shippingPrice,
+      taxPrice: cart.taxPrice,
+      totalPrice: cart.totalPrice,
+    });
+
+    // Create order and order items in DB // >Prisma transactions< Either succeed or fail as a whole
+
+    const insertedOrderId = await prisma.$transaction(async (tx) => {
+      // Create order
+      const insertedOrder = await tx.order.create({ data: order });
+
+      // Create order items from the cart items
+      for (const item of cart.items as CartItem[]) {
+        await tx.orderItem.create({
+          data: {
+            ...item,
+            price: item.price,
+            orderId: insertedOrder.id,
+          },
+        });
+      }
+      // Celar cart
+      await tx.cart.update({
+        where: { id: cart.id },
+        data: {
+          items: [],
+          totalPrice: 0,
+          taxPrice: 0,
+          shippingPrice: 0,
+          itemsPrice: 0,
+        },
+      });
+
+      return insertedOrder.id;
+    });
+
+    if (!insertedOrderId) throw new Error("Order is not created");
+    return {
+      success: true,
+      message: "Order created",
+      redirectTo: `/order/${insertedOrderId}`,
+    };
   } catch (error) {
     if (isRedirectError(error)) throw error;
     return { success: false, message: formatError(error) };
