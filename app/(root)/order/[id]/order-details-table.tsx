@@ -96,7 +96,7 @@ const OrderDetailsTable = ({
               <p className="mb-2">{paymentMethod}</p>
               {isPaid ? (
                 <Badge variant="secondary">
-                  Paid at {formatDateTime(paidAt!).dateTime}
+                  Paid on {formatDateTime(paidAt!).dateTime}
                 </Badge>
               ) : (
                 <Badge variant="destructive">Not Paid</Badge>
@@ -111,7 +111,7 @@ const OrderDetailsTable = ({
                 {shippingAddress.streetAddress}, {shippingAddress.city}{" "}
                 {shippingAddress.postalCode}, {shippingAddress.country}
               </p>
-              {isPaid ? (
+              {isDelivered ? (
                 <Badge variant="secondary">
                   Delivered at {formatDateTime(deliveredAt!).dateTime}
                 </Badge>
