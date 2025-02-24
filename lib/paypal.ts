@@ -33,7 +33,8 @@ export const paypal = {
     const response = await fetch(url, {
       method: "POST",
       headers: {
-        "Content Type": "application/json",
+        // AAAAAAAAAAA
+        "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken}`,
       },
     });
