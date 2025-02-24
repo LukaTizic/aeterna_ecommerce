@@ -131,14 +131,15 @@ export async function createPayPalOrder(orderId: string) {
       // Update order with paypal order ID
       await prisma.order.update({
         where: {
-          id: { orderId },
-          data: {
-            paymentResult: {
-              id: paypalOrder.id,
-              email_address: "",
-              status: "",
-              pricePaid: 0,
-            },
+          id: orderId,
+        },
+
+        data: {
+          paymentResult: {
+            id: paypalOrder.id,
+            email_address: "",
+            status: "",
+            pricePaid: 0,
           },
         },
       });
