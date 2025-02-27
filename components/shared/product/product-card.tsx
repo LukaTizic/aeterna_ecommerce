@@ -4,6 +4,7 @@ import Link from "next/link";
 import React from "react";
 import ProductPrice from "./product-price";
 import { Product } from "@/types";
+import { Star } from "lucide-react";
 
 const ProductCard = ({ product }: { product: Product }) => {
   return (
@@ -25,7 +26,9 @@ const ProductCard = ({ product }: { product: Product }) => {
           <h2 className="text-sm font-medium">{product.name}</h2>
         </Link>
         <div className="flex-between gap-4">
-          <p>{product.rating} Start</p>
+          <p className="flex flex-row gap-1">
+            {product.rating} <Star />
+          </p>
           {product.stock > 0 ? (
             <ProductPrice value={Number(product.price)} />
           ) : (
