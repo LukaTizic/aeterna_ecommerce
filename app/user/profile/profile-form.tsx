@@ -50,7 +50,6 @@ const ProfileForm = () => {
     };
 
     await update(newSession);
-
     toast({ description: res.message });
   };
 
