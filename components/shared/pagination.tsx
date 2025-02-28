@@ -26,7 +26,7 @@ const Pagination = ({ page, totalPages, urlParamName }: PaginationProps) => {
   };
 
   return (
-    <div className="flex gap-2">
+    <div className="flex justify-center gap-2 mt-5">
       <Button
         size="lg"
         variant="outline"
