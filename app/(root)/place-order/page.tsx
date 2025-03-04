@@ -85,7 +85,8 @@ const PlaceOrderPage = async () => {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {cart.items.map((item) => (
+{/*                   Just a temporal fix, for build test */}
+                  {cart.items.map((item:any) => (
                     <TableRow key={item.slug}>
                       <TableCell>
                         <Link
