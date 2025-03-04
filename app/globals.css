@@ -102,7 +102,9 @@
   }
 }
 
-
+.barchart {
+  fill: #00b8db;
+}
 
 @layer base {
   * {
