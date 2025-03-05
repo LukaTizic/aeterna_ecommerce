@@ -15,6 +15,7 @@ import { Order } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import { useToast } from "@/hooks/use-toast";
+import { useTransition } from "react";
 import {
   PayPalButtons,
   PayPalScriptProvider,
@@ -23,14 +24,19 @@ import {
 import {
   createPayPalOrder,
   approvePayPalOrder,
+  updateOrderToPaidCOD,
+  deliverOrder,
 } from "@/lib/actions/order.actions";
+import { Button } from "@/components/ui/button";
 
 const OrderDetailsTable = ({
   order,
   paypalClientId,
+  isAdmin,
 }: {
   order: Order;
   paypalClientId: string;
+  isAdmin: boolean;
 }) => {
   const {
     shippingAddress,
@@ -81,6 +87,53 @@ const OrderDetailsTable = ({
       variant: res.success ? "default" : "destructive",
       description: res.message,
     });
+  };
+
+  // Button mark order as paid
+  const MarkAsPaidButton = () => {
+    const [isPending, startTransition] = useTransition();
+    const { toast } = useToast();
+
+    return (
+      <Button
+        type="button"
+        disabled={isPending}
+        onClick={() =>
+          startTransition(async () => {
+            const res = await updateOrderToPaidCOD(order.id);
+            toast({
+              variant: res.success ? "default" : "destructive",
+              description: res.message,
+            });
+          })
+        }
+      >
+        {isPending ? "Processing ..." : " Mark as Paid"}
+      </Button>
+    );
+  };
+
+  const MarkAsDeliveredButton = () => {
+    const [isPending, startTransition] = useTransition();
+    const { toast } = useToast();
+
+    return (
+      <Button
+        type="button"
+        disabled={isPending}
+        onClick={() =>
+          startTransition(async () => {
+            const res = await deliverOrder(order.id);
+            toast({
+              variant: res.success ? "default" : "destructive",
+              description: res.message,
+            });
+          })
+        }
+      >
+        {isPending ? "Processing ..." : " Mark as Delivered"}
+      </Button>
+    );
   };
 
   return (
@@ -193,6 +246,13 @@ const OrderDetailsTable = ({
                   </PayPalScriptProvider>
                 </div>
               )}
+              <div className="flex justify-end">
+                {/* Cash on Delivery */}
+                {isAdmin && !isPaid && paymentMethod === "CashOnDelivery" && (
+                  <MarkAsPaidButton />
+                )}
+                {isAdmin && isPaid && !isDelivered && <MarkAsDeliveredButton />}
+              </div>
             </CardContent>
           </Card>
         </div>
