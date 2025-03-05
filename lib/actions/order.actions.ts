@@ -367,7 +367,6 @@ export async function deleteOrder(id: string) {
     };
   }
 }
-
 // Update order to paid
 export async function updateOrderToPaidCOD(orderId: string) {
   try {
