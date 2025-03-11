@@ -3,7 +3,7 @@ import { prisma } from "@/db/prisma";
 import { convertToObject, formatError } from "../utils";
 import { LATEST_PRODUCTS_LIMIT, PAGE_SIZE } from "../constants";
 import { revalidatePath } from "next/cache";
-import { insertProductSchema } from "../validators";
+import { insertProductSchema, updateProductSchema } from "../validators";
 import { z } from "zod";
 
 // get latest products
@@ -79,6 +79,31 @@ export async function createProduct(data: z.infer<typeof insertProductSchema>) {
     return {
       success: true,
       message: "Product has been created.",
+    };
+  } catch (error) {
+    return { success: false, message: formatError(error) };
+  }
+}
+
+// Update product
+export async function updateProduct(data: z.infer<typeof updateProductSchema>) {
+  try {
+    const product = updateProductSchema.parse(data);
+    const productExist = await prisma.product.findFirst({
+      where: { id: product.id },
+    });
+
+    if (!productExist) throw new Error("Product not found.");
+
+    await prisma.product.update({
+      where: { id: product.id },
+      data: product,
+    });
+
+    revalidatePath("/admin/products");
+    return {
+      success: true,
+      message: "Product has been updated.",
     };
   } catch (error) {
     return { success: false, message: formatError(error) };
