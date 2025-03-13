@@ -62,6 +62,28 @@ const ProductForm = ({
         router.push("/admin/products");
       }
     }
+
+    // On Update
+    if (type === "Update") {
+      if (!productId) {
+        router.push("/admin/products");
+        return;
+      }
+
+      const res = await updateProduct({ ...values, id: productId });
+
+      if (!res.success) {
+        toast({
+          variant: "destructive",
+          description: res.message,
+        });
+      } else {
+        toast({
+          description: res.message,
+        });
+        router.push("/admin/products");
+      }
+    }
   };
 
   return (
