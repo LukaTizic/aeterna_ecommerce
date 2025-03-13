@@ -19,6 +19,7 @@ import {
 import slugify from "slugify";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { Textarea } from "../ui/textarea";
 
 const ProductForm = ({
   type,
@@ -195,6 +196,31 @@ const ProductForm = ({
         </div>
         <div className="upload-field">{/* isFeatured */}</div>
         <div>{/* Description */}</div>
+        {/* Description */}
+        <FormField
+          control={form.control}
+          name="description"
+          render={({
+            field,
+          }: {
+            field: ControllerRenderProps<
+              z.infer<typeof insertProductSchema>,
+              "description"
+            >;
+          }) => (
+            <FormItem className="w-full">
+              <FormLabel className="text-cyan-500">Description</FormLabel>
+              <FormControl>
+                <Textarea
+                  placeholder="Enter product description"
+                  className="resize-none"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <div>{/* Submit */}</div>
       </form>
     </Form>
