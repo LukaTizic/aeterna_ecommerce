@@ -118,5 +118,3 @@ export async function updateProduct(data: z.infer<typeof updateProductSchema>) {
     return { success: false, message: formatError(error) };
   }
 }
-
-ct;
