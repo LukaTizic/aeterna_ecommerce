@@ -24,6 +24,7 @@ import { createProduct, updateProduct } from "@/lib/actions/product.actions";
 import { UploadButton } from "@/lib/uploadthing";
 import { Card, CardContent } from "../ui/card";
 import Image from "next/image";
+import { Checkbox } from "../ui/checkbox";
 
 const ProductForm = ({
   type,
@@ -90,6 +91,8 @@ const ProductForm = ({
   };
 
   const images = form.watch("images");
+  const isFeatured = form.watch("isFeatured");
+  const banner = form.watch("banner");
 
   return (
     <Form {...form}>
@@ -289,33 +292,81 @@ const ProductForm = ({
             )}
           />
         </div>
-        <div className="upload-field">{/* isFeatured */}</div>
-        <div>{/* Description */}</div>
-        {/* Description */}
-        <FormField
-          control={form.control}
-          name="description"
-          render={({
-            field,
-          }: {
-            field: ControllerRenderProps<
-              z.infer<typeof insertProductSchema>,
-              "description"
-            >;
-          }) => (
-            <FormItem className="w-full">
-              <FormLabel className="text-cyan-500">Description</FormLabel>
-              <FormControl>
-                <Textarea
-                  placeholder="Enter product description"
-                  className="resize-none"
-                  {...field}
+
+        <div className="upload-field">
+          {/* isFeatured */}
+          <div className="text-cyan-500 mb-2">Featured Product</div>
+          <Card>
+            <CardContent className="space-y-2 mt-2 ">
+              <FormField
+                control={form.control}
+                name="isFeatured"
+                render={({ field }) => (
+                  <FormItem className=" space-x-2 items-center">
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                    <FormLabel>Is Featured?</FormLabel>
+                  </FormItem>
+                )}
+              />
+              {isFeatured && banner && (
+                <Image
+                  src={banner}
+                  alt="banner image"
+                  className="w-full object-cover object-center rounded-sm"
+                  width={1920}
+                  height={680}
                 />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+              )}
+
+              {isFeatured && !banner && (
+                <UploadButton
+                  endpoint="imageUploader"
+                  onClientUploadComplete={(res: { url: string }[]) => {
+                    form.setValue("banner", res[0].url);
+                  }}
+                  onUploadError={(error: Error) => {
+                    toast({
+                      variant: "destructive",
+                      description: `ERROR! ${error.message}`,
+                    });
+                  }}
+                />
+              )}
+            </CardContent>
+          </Card>
+        </div>
+        <div>
+          {/* Description */}
+          <FormField
+            control={form.control}
+            name="description"
+            render={({
+              field,
+            }: {
+              field: ControllerRenderProps<
+                z.infer<typeof insertProductSchema>,
+                "description"
+              >;
+            }) => (
+              <FormItem className="w-full">
+                <FormLabel className="text-cyan-500">Description</FormLabel>
+                <FormControl>
+                  <Textarea
+                    placeholder="Enter product description"
+                    className="resize-none"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
         <div>
           {/* Submit */}
           <Button
