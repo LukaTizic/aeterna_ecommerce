@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { getAllUsers } from "@/lib/actions/user.actions";
+import { getAllUsers, deleteUser } from "@/lib/actions/user.actions";
 import {
   Table,
   TableBody,
