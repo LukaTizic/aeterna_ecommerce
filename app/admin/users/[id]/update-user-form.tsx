@@ -96,6 +96,33 @@ const UpdateUserForm = ({
             )}
           />
         </div>
+        {/* Name */}
+        <div>
+          <FormField
+            control={form.control}
+            name="name"
+            render={({
+              field,
+            }: {
+              field: ControllerRenderProps<
+                z.infer<typeof updateUserSchema>,
+                "name"
+              >;
+            }) => (
+              <FormItem className="w-full">
+                <FormLabel className="text-cyan-500">Name</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="Enter user name"
+                    {...field}
+                    className="capitalize"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
       </form>
     </Form>
   );
