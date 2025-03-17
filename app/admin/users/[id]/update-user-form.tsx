@@ -109,7 +109,7 @@ const UpdateUserForm = ({
                 "name"
               >;
             }) => (
-              <FormItem className="w-full">
+              <FormItem className="w-full mt-5">
                 <FormLabel className="text-cyan-500">Name</FormLabel>
                 <FormControl>
                   <Input
@@ -118,6 +118,43 @@ const UpdateUserForm = ({
                     className="capitalize"
                   />
                 </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>{" "}
+        {/* Role */}
+        <div>
+          <FormField
+            control={form.control}
+            name="role"
+            render={({
+              field,
+            }: {
+              field: ControllerRenderProps<
+                z.infer<typeof updateUserSchema>,
+                "role"
+              >;
+            }) => (
+              <FormItem className="w-full mt-5">
+                <FormLabel className="text-red-500">Role</FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  value={field.value.toString()}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a role" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {USER_ROLES.map((role) => (
+                      <SelectItem key={role} value={role}>
+                        {role.charAt(0).toUpperCase() + role.slice(1)}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
                 <FormMessage />
               </FormItem>
             )}
