@@ -160,6 +160,15 @@ const UpdateUserForm = ({
             )}
           />
         </div>
+        <div className="flex-between mt-6">
+          <Button
+            type="submit"
+            className="w-full"
+            disabled={form.formState.isSubmitting}
+          >
+            {form.formState.isSubmitting ? "Submitting..." : "Update User"}
+          </Button>
+        </div>
       </form>
     </Form>
   );
