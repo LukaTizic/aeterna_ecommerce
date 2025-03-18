@@ -41,11 +41,10 @@ const AdminOrdersPage = async (props: {
         <h1 className="h2-bold">Orders</h1>
         {searchText && (
           <div>
-            Filtered by &quot;{" "}
-            <span className="text-cyan-500 font-bold uppercase">
+            Filtered by:
+            <span className="text-cyan-500 font-bold uppercase mx-2">
               {searchText}
-            </span>{" "}
-            &quot;{" "}
+            </span>
             <Link href="/admin/orders" className="ml-2">
               <Button variant="outline" size="sm">
                 Remove Filter
