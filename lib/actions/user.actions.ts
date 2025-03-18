@@ -5,6 +5,7 @@ import {
   signUpFormSchema,
   shippingAddressSchema,
   paymentMethodSchema,
+  updateUserSchema,
 } from "../validators";
 import { auth, signIn, signOut } from "@/auth";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
@@ -210,6 +211,21 @@ export async function deleteUser(id: string) {
     revalidatePath("/admin/users");
 
     return { success: true, message: "User has been deleted." };
+  } catch (error) {
+    return { success: false, message: formatError(error) };
+  }
+}
+
+// update user
+export async function updateUser(user: z.infer<typeof updateUserSchema>) {
+  try {
+    await prisma.user.update({
+      where: { id: user.id },
+      data: { name: user.name, role: user.role },
+    });
+
+    revalidatePath("/admin/users");
+    return { success: true, message: "User has been updated." };
   } catch (error) {
     return { success: false, message: formatError(error) };
   }
