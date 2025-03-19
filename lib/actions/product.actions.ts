@@ -32,7 +32,7 @@ export async function getProductById(productId: string) {
 }
 
 // get all products
-// TODO: ADD QUERY FILTERING
+
 export async function getAllProducts({
   query,
   limit = PAGE_SIZE,
