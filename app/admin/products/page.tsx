@@ -1,6 +1,4 @@
-import React from "react";
 import Link from "next/link";
-
 import { getAllProducts, deleteProduct } from "@/lib/actions/product.actions";
 import { formatCurrency, formatId } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -14,10 +12,17 @@ import {
 } from "@/components/ui/table";
 import Pagination from "@/components/shared/pagination";
 import DeleteDialog from "@/components/shared/delete-dialog";
+import { requiredAdmin } from "@/lib/auth-guard";
 
 const AdminProductsPage = async (props: {
-  searchParams: Promise<{ page: string; query: string; category: string }>;
+  searchParams: Promise<{
+    page: string;
+    query: string;
+    category: string;
+  }>;
 }) => {
+  await requiredAdmin();
+
   const searchParams = await props.searchParams;
 
   const page = Number(searchParams.page) || 1;
@@ -26,20 +31,34 @@ const AdminProductsPage = async (props: {
 
   const products = await getAllProducts({
     query: searchText,
-    // page: page,
     page,
-    // category: category,
     category,
   });
-
+  console.log(searchText);
   return (
     <div className="space-y-2">
       <div className="flex-between">
-        <h1 className="h2-bold">Products</h1>
+        <div className="flex justify-between items-center gap-3">
+          <h1 className="h2-bold">Products</h1>
+          {searchText && (
+            <div>
+              Filtered by:
+              <span className="text-cyan-500 font-bold uppercase mx-2">
+                {searchText}
+              </span>
+              <Link href="/admin/products" className="ml-2">
+                <Button variant="outline" size="sm">
+                  Remove Filter
+                </Button>
+              </Link>
+            </div>
+          )}
+        </div>
         <Button asChild variant="default">
           <Link href="/admin/products/create">Create Product</Link>
         </Button>
       </div>
+
       <Table>
         <TableHeader>
           <TableRow>
@@ -73,7 +92,7 @@ const AdminProductsPage = async (props: {
           ))}
         </TableBody>
       </Table>
-      {products?.totalPages && products.totalPages > 1 && (
+      {products.totalPages > 1 && (
         <Pagination page={page} totalPages={products.totalPages} />
       )}
     </div>
