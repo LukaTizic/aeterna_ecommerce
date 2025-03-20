@@ -136,9 +136,19 @@ export async function updateProduct(data: z.infer<typeof updateProductSchema>) {
 }
 
 // Get All Categories
-
 export async function getAllCategories() {
   const data = await prisma.product.groupBy({ by: ["category"], _count: true });
 
   return data;
+}
+
+// Get featured product
+export async function getFeaturedProducts() {
+  const data = await prisma.product.findMany({
+    where: { isFeatured: true },
+    orderBy: { createdAt: "desc" },
+    take: 4,
+  });
+
+  return convertToObject(data);
 }
