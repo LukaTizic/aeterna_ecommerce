@@ -90,7 +90,7 @@ const SearchPage = async (props: {
         {/* Category Links */}
         <div className="text-xl mb-2 mt-3">Department</div>
         <div>
-          <ul className="space-y-1 border-2 pl-5 py-5">
+          <ul className="space-y-1 border-2  border-gray-300 dark:border-gray-700  pl-5 py-5">
             <li>
               <Link
                 className={`${
@@ -106,7 +106,7 @@ const SearchPage = async (props: {
               <li key={x.category}>
                 <Link
                   className={`${
-                    category === x.category && "font-bold text-cyan-500"
+                    category === x.category && "font-bold text-cyan-500 pl-2"
                   }`}
                   href={getFilterUrl({ c: x.category })}
                 >
@@ -119,7 +119,7 @@ const SearchPage = async (props: {
         {/* Price Links */}
         <div className="text-xl mb-2 mt-7">Price</div>
         <div>
-          <ul className="space-y-1 border-2 pl-5 py-5">
+          <ul className="space-y-1 border-2  border-gray-300 dark:border-gray-700 pl-5 py-5">
             <li>
               <Link
                 className={`${price === "all" && "font-bold text-cyan-500"}`}
@@ -132,7 +132,7 @@ const SearchPage = async (props: {
               <li key={p.value}>
                 <Link
                   className={`${
-                    price === p.value && "font-bold text-cyan-500"
+                    price === p.value && "font-bold text-cyan-500 pl-2"
                   }`}
                   href={getFilterUrl({ p: p.value })}
                 >
