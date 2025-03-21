@@ -106,7 +106,7 @@ const SearchPage = async (props: {
               <li key={x.category}>
                 <Link
                   className={`${
-                    category === x.category && "font-bold text-cyan-500 pl-2"
+                    category === x.category && "font-bold text-cyan-500 "
                   }`}
                   href={getFilterUrl({ c: x.category })}
                 >
@@ -132,7 +132,7 @@ const SearchPage = async (props: {
               <li key={p.value}>
                 <Link
                   className={`${
-                    price === p.value && "font-bold text-cyan-500 pl-2"
+                    price === p.value && "font-bold text-cyan-500 "
                   }`}
                   href={getFilterUrl({ p: p.value })}
                 >
