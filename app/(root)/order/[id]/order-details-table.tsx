@@ -28,15 +28,18 @@ import {
   deliverOrder,
 } from "@/lib/actions/order.actions";
 import { Button } from "@/components/ui/button";
+import StripePayment from "./stripe-payment";
 
 const OrderDetailsTable = ({
   order,
   paypalClientId,
   isAdmin,
+  stripeClientSecret,
 }: {
   order: Order;
   paypalClientId: string;
   isAdmin: boolean;
+  stripeClientSecret: string | null;
 }) => {
   const {
     shippingAddress,
@@ -246,8 +249,21 @@ const OrderDetailsTable = ({
                   </PayPalScriptProvider>
                 </div>
               )}
+
+              {/* Stripe Payment */}
               <div className="flex justify-end">
-                {/* Cash on Delivery */}
+                {!isPaid &&
+                  paymentMethod === "Stripe" &&
+                  stripeClientSecret && (
+                    <StripePayment
+                      priceInCents={Number(order.totalPrice) * 100}
+                      orderId={order.id}
+                      client_secret={stripeClientSecret}
+                    />
+                  )}
+              </div>
+              {/* Cash on Delivery */}
+              <div className="flex justify-end">
                 {isAdmin && !isPaid && paymentMethod === "CashOnDelivery" && (
                   <MarkAsPaidButton />
                 )}
