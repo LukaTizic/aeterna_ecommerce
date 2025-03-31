@@ -251,14 +251,14 @@ const OrderDetailsTable = ({
               )}
 
               {/* Stripe Payment */}
-              <div className="flex justify-end">
+              <div className="flex justify-center">
                 {!isPaid &&
                   paymentMethod === "Stripe" &&
                   stripeClientSecret && (
                     <StripePayment
                       priceInCents={Number(order.totalPrice) * 100}
                       orderId={order.id}
-                      client_secret={stripeClientSecret}
+                      clientSecret={stripeClientSecret}
                     />
                   )}
               </div>
