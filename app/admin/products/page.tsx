@@ -34,7 +34,7 @@ const AdminProductsPage = async (props: {
     page,
     category,
   });
-  console.log(searchText);
+
   return (
     <div className="space-y-2">
       <div className="flex-between">
