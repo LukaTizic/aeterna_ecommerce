@@ -1,4 +1,4 @@
-![Alt text](gitaeterna.png)
+![Alt text](gitaeterna-2.png)
 
 ```bash
 npm run dev
