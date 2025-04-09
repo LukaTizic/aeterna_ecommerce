@@ -1,4 +1,3 @@
-
 ![Alt text](gitaeterna.png)
 
 ```bash
