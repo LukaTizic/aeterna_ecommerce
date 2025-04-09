@@ -1,6 +1,5 @@
-## Currently underdevelopment
 
-
+![Alt text](gitaeterna.png)
 
 ```bash
 npm run dev
