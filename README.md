@@ -1,9 +1,4 @@
 
-
-
-
-![Alt text](final-aeterna-git.png)
-
 <div style="text-align: center; font-family: 'Arial', sans-serif; padding: 50px 0; background: linear-gradient(135deg, #6a11cb, #2575fc); color: #fff;">
   <h1 style="font-size: 3rem; font-weight: bold; letter-spacing: 2px;">Welcome to Aeterna!</h1>
   <p style="font-size: 1.25rem; margin: 20px 0; font-style: italic;">A sleek eCommerce app built with Next.js — crafted to explore modern web development and UI design.</p>
@@ -23,22 +18,35 @@ npm dev
 bun dev
 ```
 
+
+
+<div style="max-width: 800px; margin: 0 auto; text-align: center; font-family: 'Arial', sans-serif; padding: 40px 20px; color: #fff;">
+  <h2 style="font-size: 2rem; font-weight: bold; margin-bottom: 20px;">Tech Stack</h2>
+  <p style="font-size: 1.1rem; margin-bottom: 30px; font-style: italic;">
+    Built using modern web technologies and tools to deliver performance, reliability, and a polished user experience.
+  </p>
+  <ul style="list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; text-align: left;">
+    <li>⚛️ React v19</li>
+    <li>🔼 Next.js v15</li>
+    <li>🟦 TypeScript</li>
+    <li>🧹 ES Lint</li>
+    <li>🐘 PostgreSQL</li>
+    <li>🛠️ Prisma</li>
+    <li>🧪 Jest</li>
+    <li>🛡️ Zod</li>
+    <li>🔐 Next Auth</li>
+    <li>🧾 React Hook Form</li>
+    <li>💳 PayPal & Stripe API</li>
+    <li>🎨 Tailwind CSS</li>
+    <li>🧩 ShadCN UI</li>
+    <li>📊 Recharts</li>
+  </ul>
+</div>
+
 <hr>
 
-### List of the technologies and libraries that I've used:
-- Next.js v15
-- React v19
-- TypeScript
-- ES Lint
-- PostgreSQL
-- Prisma
-- Zod
-- Next Auth
-- React Hook Form
-- PayPal & Stripe API
-- ShadCN UI
-- Tailwind CSS
-- Recharts
-- Jest
+![Alt text](final-aeterna-git.png)
+
+
 
 <hr>
