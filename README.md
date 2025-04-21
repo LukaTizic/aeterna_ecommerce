@@ -45,8 +45,7 @@ bun dev
 
 <hr>
 
-![Alt text](final-aeterna-git.png)
-
+[![Alt text](final-aeterna-git.png)](https://aeterna-ecommerce.vercel.app/)
 
 
 <hr>
