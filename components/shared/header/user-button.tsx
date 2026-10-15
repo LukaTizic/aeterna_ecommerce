@@ -16,9 +16,14 @@ const UserButton = async () => {
 
   if (!session) {
     return (
-      <Button asChild>
-        <Link href="/sign-in">
-          <UserIcon /> Sign In
+      <Button
+        asChild
+        variant="ghost"
+        className="h-11 w-11 rounded-full px-0 font-semibold sm:w-auto sm:px-4"
+      >
+        <Link href="/sign-in" aria-label="Sign in">
+          <UserIcon />
+          <span className="hidden sm:inline">Sign in</span>
         </Link>
       </Button>
     );
@@ -33,7 +38,7 @@ const UserButton = async () => {
           <div className="flex items-center">
             <Button
               variant="ghost"
-              className="relative w-8 h-8 rounded-full ml-2 flex items-center justify-center bg-blue-400"
+              className="relative ml-1 flex h-10 w-10 items-center justify-center rounded-full bg-primary font-bold text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground"
             >
               {firstInitial}
             </Button>

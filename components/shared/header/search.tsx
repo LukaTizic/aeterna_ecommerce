@@ -1,47 +1,24 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { getAllCategories } from "@/lib/actions/product.actions";
 import { SearchIcon } from "lucide-react";
 
-const Search = async () => {
-  const categories = await getAllCategories();
-
+const Search = () => {
   return (
-    <form action="/search" method="GET">
-      <div className="flex w-full max-w-sm items-center space-x-2 gap-2">
-        <Select name="category">
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="All" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem key="All" value="all">
-              All
-            </SelectItem>
-            {categories.map((item) => (
-              <SelectItem key={item.category} value={item.category}>
-                {item.category}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        <Input
-          // q cause its an query
+    <form action="/search" method="GET" role="search">
+      <label className="flex h-12 w-full items-center gap-2.5 rounded-full border bg-background pl-5 pr-1.5 text-muted-foreground focus-within:ring-2 focus-within:ring-ring">
+        <SearchIcon className="h-[18px] w-[18px] shrink-0" aria-hidden="true" />
+        <span className="sr-only">Search products</span>
+        <input
           name="query"
-          type="text"
-          placeholder="Search..."
-          className="md:w-[100px] lg:w-[300px]"
+          type="search"
+          placeholder="Search shirts, hoodies..."
+          className="h-full w-full bg-transparent text-[15px] text-foreground outline-none placeholder:text-muted-foreground"
         />
-        <Button>
-          <SearchIcon />
-        </Button>
-      </div>
+        <button
+          type="submit"
+          className="h-9 shrink-0 rounded-full bg-primary px-4 text-sm font-semibold text-primary-foreground hover:opacity-90"
+        >
+          Search
+        </button>
+      </label>
     </form>
   );
 };

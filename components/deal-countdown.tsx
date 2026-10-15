@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { Button } from "./ui/button";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -41,92 +40,70 @@ const DealCountdown = () => {
       ) {
         clearInterval(timerInterval);
       }
-
-      return () => clearInterval(timerInterval);
     }, 1000);
+
+    // Stop the timer when the component unmounts
+    return () => clearInterval(timerInterval);
   }, []);
 
-  if (!time) {
-    return (
-      <section className="grid grid-cols-1 md:grid-cols-2 my-20">
-        <div className="flex flex-col gap-2 justify-center">
-          <h3 className="text-3xl font-bold">Loading Countdown...</h3>
-        </div>
-      </section>
-    );
-  }
-
-  if (
+  const ended =
+    !!time &&
     time.days === 0 &&
     time.hours === 0 &&
     time.minutes === 0 &&
-    time.seconds === 0
-  ) {
-    return (
-      <section className="grid grid-cols-1 md:grid-cols-2 my-20">
-        <div className="flex flex-col gap-2 justify-center">
-          <h3 className="text-3xl font-bold">Deal Has Ended</h3>
-          <p>
-            This deal is no longer available. Check out our latest promotions!
-          </p>
-
-          <div className="text-center">
-            <Button asChild>
-              <Link href="/search">View Products</Link>
-            </Button>
-          </div>
-        </div>
-        <div className="flex justify-center">
-          <Image
-            src="/images/promo.jpg"
-            alt="promotion"
-            width={300}
-            height={200}
-          />
-        </div>
-      </section>
-    );
-  }
+    time.seconds === 0;
 
   return (
-    <section className="grid grid-cols-1 md:grid-cols-2 my-20">
-      <div className="flex flex-col gap-2 justify-center">
-        <h3 className="text-3xl font-bold">Deal Of The Month</h3>
-        <p>
-          🎁 Get ready for a shopping experience like never before with our{" "}
-          <span className="font-bold text-cyan-500">Deals of the Month!</span>{" "}
-          Every purchase comes with exclusive perks and offers, making this
-          month a celebration of savvy choices and amazing deals. Don&apos;t
-          miss out!
+    <section id="deal" className="grid scroll-mt-6 gap-5 pt-14 lg:grid-cols-2">
+      <div className="flex flex-col justify-center gap-5 rounded-[28px] bg-[#14161A] p-8 text-white dark:border dark:bg-card md:p-14">
+        <span className="self-start rounded-full bg-primary px-3.5 py-2 text-sm font-bold text-primary-foreground">
+          Deal of the month
+        </span>
+        <h2 className="text-3xl font-extrabold leading-tight tracking-tight md:text-5xl">
+          {ended ? "This deal has ended" : "A better price, not for long."}
+        </h2>
+        <p className="max-w-md text-[17px] leading-relaxed text-[#B9BEC8]">
+          {ended
+            ? "This deal is no longer available. Check out our latest products instead."
+            : "Every month we drop the price on selected pieces. When the timer runs out, the deal is gone."}
         </p>
-        <ul className="grid grid-cols-4">
-          <StatBox label="Days" value={time.days} />
-          <StatBox label="Hours" value={time.hours} />
-          <StatBox label="Minutes" value={time.minutes} />
-          <StatBox label="Seconds" value={time.seconds} />
-        </ul>
-        <div className="text-center">
-          <Button asChild>
-            <Link href="/search">View Products</Link>
-          </Button>
+        {!ended && (
+          <ul className="grid max-w-md grid-cols-4 gap-2.5">
+            <StatBox label="days" value={time?.days} />
+            <StatBox label="hours" value={time?.hours} />
+            <StatBox label="min" value={time?.minutes} />
+            <StatBox label="sec" value={time?.seconds} />
+          </ul>
+        )}
+        <div>
+          <Link
+            href="/search"
+            className="inline-flex h-14 items-center rounded-full bg-white px-7 font-bold text-[#14161A] hover:bg-white/90"
+          >
+            View products
+          </Link>
         </div>
       </div>
-      <div className="flex justify-center">
+      <div className="flex min-h-[360px] items-center justify-center rounded-[28px] border bg-white lg:min-h-[480px]">
         <Image
           src="/images/promo.jpg"
-          alt="promotion"
-          width={300}
-          height={200}
+          alt="Deal of the month"
+          width={600}
+          height={600}
+          sizes="(min-width: 1024px) 380px, 70vw"
+          className="h-auto w-[62%]"
         />
       </div>
     </section>
   );
 };
 
-const StatBox = ({ label, value }: { label: string; value: number }) => (
-  <li className="p-4 w-full text-center">
-    <p className="text-3xl text-cyan-500 font-bold">{value}</p>
-    <p>{label}</p>
+const StatBox = ({ label, value }: { label: string; value?: number }) => (
+  <li className="rounded-2xl bg-white/[0.08] px-1.5 py-3.5 text-center">
+    <p className="text-3xl font-extrabold leading-none tabular-nums">
+      {value === undefined ? "--" : String(value).padStart(2, "0")}
+    </p>
+    <p className="mt-1.5 text-xs text-[#B9BEC8]">{label}</p>
   </li>
 );
 

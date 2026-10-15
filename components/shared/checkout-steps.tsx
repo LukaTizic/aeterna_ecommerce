@@ -9,7 +9,7 @@ const CheckoutSteps = ({ current = 0 }) => {
           <React.Fragment key={step}>
             <div
               className={cn(
-                "p-2 w-56 rounded-full text-center text-sm text-cyan-500",
+                "p-2 w-56 rounded-full text-center text-sm text-primary",
                 index === current ? "bg-secondary text-white" : ""
               )}
             >

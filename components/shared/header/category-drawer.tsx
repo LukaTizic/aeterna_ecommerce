@@ -7,25 +7,34 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { getAllCategories } from "@/lib/actions/product.actions";
 import { MenuIcon } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
-const CategoryDrawer = async () => {
-  const categories = await getAllCategories();
+type CategoryCount = { category: string; _count: number };
 
+const CategoryDrawer = ({ categories }: { categories: CategoryCount[] }) => {
   return (
     <Drawer direction="left">
       <DrawerTrigger asChild>
-        <Button variant="outline">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="h-11 w-11 rounded-full"
+          aria-label="Browse categories"
+        >
           <MenuIcon />
         </Button>
       </DrawerTrigger>
       <DrawerContent className="h-full max-w-sm">
         <DrawerHeader>
-          <DrawerTitle>Select Category</DrawerTitle>
-          <div className="space-y-1 mt-4">
+          <DrawerTitle>Shop by category</DrawerTitle>
+          <div className="mt-4 space-y-1">
+            <Button variant="ghost" className="w-full justify-start" asChild>
+              <DrawerClose asChild>
+                <Link href="/search">All products</Link>
+              </DrawerClose>
+            </Button>
             {categories.map((category) => (
               <Button
                 variant="ghost"
@@ -34,7 +43,11 @@ const CategoryDrawer = async () => {
                 asChild
               >
                 <DrawerClose asChild>
-                  <Link href={`/search?category=${category.category}`}>
+                  <Link
+                    href={`/search?category=${encodeURIComponent(
+                      category.category
+                    )}`}
+                  >
                     {category.category} ({category._count})
                   </Link>
                 </DrawerClose>

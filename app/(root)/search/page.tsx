@@ -138,7 +138,7 @@ const SearchPage = async (props: {
               <Link
                 className={`${
                   (category === "all" || category === "") &&
-                  "font-bold text-cyan-500"
+                  "font-bold text-primary"
                 }`}
                 href={getFilterUrl({ c: "all" })}
               >
@@ -149,7 +149,7 @@ const SearchPage = async (props: {
               <li key={x.category}>
                 <Link
                   className={`${
-                    category === x.category && "font-bold text-cyan-500 "
+                    category === x.category && "font-bold text-primary "
                   }`}
                   href={getFilterUrl({ c: x.category })}
                 >
@@ -165,7 +165,7 @@ const SearchPage = async (props: {
           <ul className="space-y-1 border-2  border-gray-300 dark:border-gray-700 pl-5 py-5">
             <li>
               <Link
-                className={`${price === "all" && "font-bold text-cyan-500"}`}
+                className={`${price === "all" && "font-bold text-primary"}`}
                 href={getFilterUrl({ p: "all" })}
               >
                 Any
@@ -175,7 +175,7 @@ const SearchPage = async (props: {
               <li key={p.value}>
                 <Link
                   className={`${
-                    price === p.value && "font-bold text-cyan-500 "
+                    price === p.value && "font-bold text-primary "
                   }`}
                   href={getFilterUrl({ p: p.value })}
                 >
@@ -191,7 +191,7 @@ const SearchPage = async (props: {
           <ul className="space-y-1 border-2  border-gray-300 dark:border-gray-700 pl-5 py-5">
             <li>
               <Link
-                className={`${rating === "all" && "font-bold text-cyan-500"}`}
+                className={`${rating === "all" && "font-bold text-primary"}`}
                 href={getFilterUrl({ r: "all" })}
               >
                 Any
@@ -201,7 +201,7 @@ const SearchPage = async (props: {
               <li key={r}>
                 <Link
                   className={`${
-                    rating === r.toString() && "font-bold text-cyan-500 "
+                    rating === r.toString() && "font-bold text-primary "
                   }`}
                   href={getFilterUrl({ r: `${r}` })}
                 >
@@ -218,25 +218,25 @@ const SearchPage = async (props: {
             {query !== "all" && query !== "" && (
               <Badge className="bg-gray-600 text-white">
                 Query:{" "}
-                <span className="text-cyan-500 pl-1 capitalize">{query}</span>.
+                <span className="text-primary pl-1 capitalize">{query}</span>.
               </Badge>
             )}
             {category !== "all" && category !== "" && (
               <Badge className="bg-gray-600 text-white">
                 Category:{" "}
-                <span className="text-cyan-500 pl-1 ">{category}</span>
+                <span className="text-primary pl-1 ">{category}</span>
               </Badge>
             )}
             {price !== "all" && (
               <Badge className="bg-gray-600 text-white">
                 Price:{" "}
-                <span className="pl-1 font-bold text-cyan-500">{price}€</span>
+                <span className="pl-1 font-bold text-primary">{price}€</span>
               </Badge>
             )}
             {rating !== "all" && (
               <Badge className="bg-gray-600 text-white">
                 Rating:{" "}
-                <span className="px-1 font-bold text-cyan-500">{rating} ★</span>
+                <span className="px-1 font-bold text-primary">{rating} ★</span>
                 & up
               </Badge>
             )}
@@ -255,7 +255,7 @@ const SearchPage = async (props: {
               <Link key={s} href={getFilterUrl({ s })}>
                 <Badge
                   className={`mx-1 bg-gray-600 text-white ${
-                    sort === s ? "font-bold text-cyan-500 " : ""
+                    sort === s ? "font-bold text-primary " : ""
                   }`}
                 >
                   {" "}

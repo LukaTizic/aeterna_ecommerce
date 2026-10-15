@@ -56,7 +56,7 @@ const ReviewList = ({
       ) : (
         <div>
           <Link
-            className="text-cyan-500 pr-2 font-bold underline uppercase "
+            className="text-primary pr-2 font-bold underline uppercase "
             href={`/sign-in?callbackUrl=/product/${productSlug}`}
           >
             sign In
@@ -79,13 +79,13 @@ const ReviewList = ({
                 <Rating value={review.rating} />
                 <div className="flex items-center ">
                   <User className="mr-1 h-3 w-3 " />
-                  <span className="text-cyan-500">
+                  <span className="text-primary">
                     {review.user ? review.user.name : "User"}
                   </span>
                 </div>
                 <div className="flex items-center">
                   <Calendar className="mr-1 h-3 w-3" />
-                  <span className="text-cyan-500">
+                  <span className="text-primary">
                     {formatDateTime(review.createdAt).dateTime}
                   </span>
                 </div>

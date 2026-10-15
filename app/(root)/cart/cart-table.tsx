@@ -53,7 +53,7 @@ const CartTable = ({ cart }: { cart?: Cart }) => {
       {!cart || cart.items.length === 0 ? (
         <div>
           Cart is empty.{" "}
-          <Link href="/" className="text-cyan-500">
+          <Link href="/" className="text-primary">
             Go Shopping
           </Link>
         </div>
