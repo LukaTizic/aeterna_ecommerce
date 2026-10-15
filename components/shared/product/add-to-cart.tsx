@@ -31,11 +31,10 @@ const AddToCart = ({ cart, item }: { cart?: Cart; item: CartItem }) => {
         description: res.message,
         action: (
           <ToastAction
-            className="bg-primary text-cyan-500"
-            altText="Go To Cart"
+            altText="Go to cart"
             onClick={() => router.push("/cart")}
           >
-            Go To Cart
+            Go to cart
           </ToastAction>
         ),
       });
@@ -61,16 +60,30 @@ const AddToCart = ({ cart, item }: { cart?: Cart; item: CartItem }) => {
     cart && cart.items.find((x) => x.productId === item.productId);
 
   return existItem ? (
-    <div>
-      <Button type="button" variant="outline" onClick={handleRemoveFromCart}>
+    <div className="flex items-center gap-1 self-start rounded-full bg-muted p-1">
+      <Button
+        type="button"
+        variant="outline"
+        size="icon"
+        aria-label="Remove one from cart"
+        className="h-12 w-12 rounded-full border-0 bg-card"
+        onClick={handleRemoveFromCart}
+      >
         {isPending ? (
           <Loader className="w-4 h-4 animate-spin" />
         ) : (
           <Minus className="w-4 h-4" />
         )}
       </Button>
-      <span className="px-2">{existItem.qty}</span>
-      <Button type="button" variant="outline" onClick={handleAddToCart}>
+      <span className="min-w-9 px-2 text-center font-bold">{existItem.qty}</span>
+      <Button
+        type="button"
+        variant="outline"
+        size="icon"
+        aria-label="Add one more to cart"
+        className="h-12 w-12 rounded-full border-0 bg-card"
+        onClick={handleAddToCart}
+      >
         {isPending ? (
           <Loader className="w-4 h-4 animate-spin" />
         ) : (
@@ -79,13 +92,17 @@ const AddToCart = ({ cart, item }: { cart?: Cart; item: CartItem }) => {
       </Button>
     </div>
   ) : (
-    <Button className="w-full" type="button" onClick={handleAddToCart}>
+    <Button
+      className="h-14 w-full rounded-full text-base font-bold"
+      type="button"
+      onClick={handleAddToCart}
+    >
       {isPending ? (
         <Loader className="w-4 h-4 animate-spin" />
       ) : (
         <Plus className="w-4 h-4" />
-      )}{" "}
-      Add To Cart
+      )}
+      Add to cart
     </Button>
   );
 };

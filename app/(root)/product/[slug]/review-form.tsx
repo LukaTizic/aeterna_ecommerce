@@ -112,7 +112,7 @@ const ReviewForm = ({
                 name="title"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-cyan-500">Title</FormLabel>
+                    <FormLabel className="text-primary">Title</FormLabel>
                     <FormControl>
                       <Input placeholder="Enter Title" {...field} />
                     </FormControl>
@@ -124,7 +124,7 @@ const ReviewForm = ({
                 name="description"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-cyan-500">Description</FormLabel>
+                    <FormLabel className="text-primary">Description</FormLabel>
                     <FormControl>
                       <Textarea placeholder="Enter Description" {...field} />
                     </FormControl>
@@ -136,7 +136,7 @@ const ReviewForm = ({
                 name="rating"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-cyan-500">Rating</FormLabel>
+                    <FormLabel className="text-primary">Rating</FormLabel>
                     <Select
                       onValueChange={field.onChange}
                       value={field.value.toString()}

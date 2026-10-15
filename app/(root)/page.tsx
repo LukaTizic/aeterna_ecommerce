@@ -1,8 +1,8 @@
 import DealCountdown from "@/components/deal-countdown";
 import IconsBoxes from "@/components/icon-boxes";
-import ProductCarousel from "@/components/shared/product/product-carousel";
+import HomeHero from "@/components/home-hero";
+import CategoryCards from "@/components/category-cards";
 import ProductList from "@/components/shared/product/product-list";
-import ViewAllProductsButton from "@/components/view-all-products-button";
 import {
   getLatestProducts,
   getFeaturedProducts,
@@ -15,17 +15,21 @@ export const metadata = {
 const Homepage = async () => {
   const latestProducts = await getLatestProducts();
   const featuredProducts = await getFeaturedProducts();
+  const heroProduct = featuredProducts[0] ?? latestProducts[0];
 
   return (
-    <>
-      {featuredProducts.length > 0 && (
-        <ProductCarousel data={featuredProducts} />
-      )}
-      <ProductList data={latestProducts} title="Newest Arrivals" limit={4} />
-      <ViewAllProductsButton />
+    <div className="pb-16">
+      <HomeHero product={heroProduct} />
+      <CategoryCards />
+      <ProductList
+        data={latestProducts}
+        title="New arrivals"
+        limit={4}
+        viewAllHref="/search"
+      />
       <DealCountdown />
       <IconsBoxes />
-    </>
+    </div>
   );
 };
 

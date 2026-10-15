@@ -29,7 +29,7 @@ const MainNav = ({
           key={link.href}
           href={link.href}
           className={cn(
-            "text-sm font-medium transition-colors hover:text-cyan-500",
+            "text-sm font-medium transition-colors hover:text-primary",
             path.includes(link.href) ? "underline" : "text-muted-foreground"
           )}
         >

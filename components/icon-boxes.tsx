@@ -1,43 +1,42 @@
 import React from "react";
-import { Card, CardContent } from "./ui/card";
-import { EuroIcon, Headset, ShoppingBag, WalletCards } from "lucide-react";
+import { CreditCard, Headset, RotateCcw, Truck } from "lucide-react";
+
+const items = [
+  { icon: Truck, title: "Free shipping", text: "On orders above €100" },
+  {
+    icon: RotateCcw,
+    title: "Money back guarantee",
+    text: "Within 30 days of purchase",
+  },
+  {
+    icon: CreditCard,
+    title: "Flexible payment",
+    text: "Card, PayPal or cash on delivery",
+  },
+  { icon: Headset, title: "Support any time", text: "We reply around the clock" },
+];
 
 const IconsBoxes = () => {
   return (
-    <div>
-      <Card>
-        <CardContent className="grid md:grid-cols-4 gap-4 p-4">
-          <div className="space-y-2">
-            <ShoppingBag />
-            <div className="text-sm font-bold">Free Shipping</div>
-            <div className="text-sm text-muted-foreground">
-              Free shipping on orders above €100
-            </div>
+    <section
+      aria-label="Our service"
+      className="grid gap-4 pt-14 sm:grid-cols-2 lg:grid-cols-4"
+    >
+      {items.map(({ icon: Icon, title, text }) => (
+        <div
+          key={title}
+          className="flex flex-col gap-3.5 rounded-[20px] border bg-card p-6"
+        >
+          <span className="flex h-12 w-12 items-center justify-center rounded-[14px] bg-muted text-primary">
+            <Icon className="h-[22px] w-[22px]" aria-hidden="true" />
+          </span>
+          <div>
+            <div className="font-bold">{title}</div>
+            <div className="mt-1 text-sm text-muted-foreground">{text}</div>
           </div>
-          <div className="space-y-2">
-            <EuroIcon />
-            <div className="text-sm font-bold">Money Back Guarantee</div>
-            <div className="text-sm text-muted-foreground">
-              Within 30 days of purchase{" "}
-            </div>
-          </div>
-          <div className="space-y-2">
-            <WalletCards />
-            <div className="text-sm font-bold">Flexible Payment</div>
-            <div className="text-sm text-muted-foreground">
-              Pay with credit card, PayPal or COD
-            </div>
-          </div>
-          <div className="space-y-2">
-            <Headset />
-            <div className="text-sm font-bold">24/7 Support</div>
-            <div className="text-sm text-muted-foreground">
-              Get support at any time{" "}
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
+        </div>
+      ))}
+    </section>
   );
 };
 
